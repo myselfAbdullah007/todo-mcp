@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: todo-mcp
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    preDeployCommand: node dist/scripts/setupDb.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false

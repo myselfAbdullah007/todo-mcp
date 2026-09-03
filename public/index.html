@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Desk — live todos from Supabase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@380;500;650&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="frame">
+      <aside class="rail">
+        <p class="eyebrow">Supabase ledger</p>
+        <h1>Desk</h1>
+        <p class="lede">
+          What Claude writes through MCP appears here. This page reads the same
+          PostgreSQL table. It does not talk to Claude.
+        </p>
+
+        <div class="stats">
+          <div>
+            <span class="stat-value" id="open-count">—</span>
+            <span class="stat-label">Open</span>
+          </div>
+          <div>
+            <span class="stat-value" id="done-count">—</span>
+            <span class="stat-label">Done</span>
+          </div>
+        </div>
+
+        <div class="live">
+          <span class="live-dot" id="live-dot"></span>
+          <span>Live from database</span>
+          <time id="synced">waiting</time>
+        </div>
+      </aside>
+
+      <section class="board">
+        <div class="toolbar">
+          <div class="filters" role="tablist" aria-label="Filter todos">
+            <button class="pill is-active" data-filter="open" type="button">
+              Open
+            </button>
+            <button class="pill" data-filter="done" type="button">Done</button>
+            <button class="pill" data-filter="all" type="button">All</button>
+          </div>
+          <p class="hint" id="hint">Polling every 2 seconds</p>
+        </div>
+
+        <div id="status" class="status" hidden></div>
+        <div id="skeleton" class="list" aria-hidden="true">
+          <div class="shell skeleton-row"></div>
+          <div class="shell skeleton-row"></div>
+          <div class="shell skeleton-row"></div>
+        </div>
+        <div id="list" class="list" hidden></div>
+      </section>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
