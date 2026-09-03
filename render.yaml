@@ -5,7 +5,6 @@ services:
     plan: free
     buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
-    preDeployCommand: node dist/scripts/setupDb.js
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
