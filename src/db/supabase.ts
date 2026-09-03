@@ -14,7 +14,19 @@ function requireEnv(name: string): string {
   return value;
 }
 
-const sql = postgres(requireEnv("DATABASE_URL"), {
+const databaseUrl = requireEnv("DATABASE_URL");
+
+if (
+  process.env.RENDER &&
+  databaseUrl.includes("db.") &&
+  databaseUrl.includes(".supabase.co")
+) {
+  console.error(
+    "DATABASE_URL is the IPv6 direct host. Render cannot reach it. Set the Session pooler URI from Supabase → Connect."
+  );
+}
+
+const sql = postgres(databaseUrl, {
   ssl: "require",
   connect_timeout: 8,
   idle_timeout: 20,

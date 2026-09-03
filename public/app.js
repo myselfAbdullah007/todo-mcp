@@ -98,7 +98,13 @@ function showError(message) {
 
 async function refresh() {
   const response = await fetch("/api/todos", { cache: "no-store" });
-  const body = await response.json();
+  const raw = await response.text();
+  let body;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    throw new Error(raw.slice(0, 280) || "Could not load todos");
+  }
   if (!response.ok) {
     throw new Error(body.error ?? "Could not load todos");
   }
