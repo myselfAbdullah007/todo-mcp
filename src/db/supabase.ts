@@ -14,7 +14,12 @@ function requireEnv(name: string): string {
   return value;
 }
 
-const sql = postgres(requireEnv("DATABASE_URL"), { ssl: "require" });
+const sql = postgres(requireEnv("DATABASE_URL"), {
+  ssl: "require",
+  connect_timeout: 8,
+  idle_timeout: 20,
+  max: 4,
+});
 
 function toIso(value: unknown): string {
   if (value instanceof Date) return value.toISOString();
